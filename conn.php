@@ -2,7 +2,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "greencycle_db";
+$dbname = "greenCycle";
 
 $conn = mysqli_connect($host, $username, $password, $dbname);//this sets the  connection to your database
 

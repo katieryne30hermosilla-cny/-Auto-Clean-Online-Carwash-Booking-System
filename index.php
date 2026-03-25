@@ -9,17 +9,17 @@ if (isset($_SESSION['username'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['emails'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT id, username, password FROM greencycle_db WHERE email=?";
+    $sql = "SELECT id, password, username FROM users WHERE email=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $username, $hashed_password);
+        $stmt->bind_result($id, $hashed_password, $username);
         $stmt->fetch();
 
         if (password_verify($password, $hashed_password)) {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Invalid emails or password.";
         }
     } else {
-        $error = "No account found with that email.";
+        $error = "No account found with that emails.";
     }
 }
 ?>

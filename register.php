@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Check if email already exists
-    $check = $conn->prepare("SELECT id FROM greencycle_db WHERE emails = ?");
+    $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
     $check->bind_param("s", $email);
     $check->execute();
     $check->store_result();
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert new user
-        $sql = "INSERT INTO greencycle_db (username, emails, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $username, $email, $hashed_password);
 
@@ -35,7 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $check->close();
-    $stmt->close();
+//     $stmt->close();
+// }$conn->close();
 }
 ?>
 <!DOCTYPE html>
