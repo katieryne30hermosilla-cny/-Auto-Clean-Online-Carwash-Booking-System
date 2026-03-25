@@ -6,7 +6,7 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']); //
-    $email = trim($_POST['emails']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
     // Check if email already exists
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insert new user
         $sql = "INSERT INTO greencycle_db (username, emails, password) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $username, $emails, $hashed_password);
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
 
         if ($stmt->execute()) {
             $success = "Account created successfully! Redirecting to login...";
